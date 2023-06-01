@@ -3,35 +3,81 @@ addpath('/Users/livioclemente/Documents/MATLAB/eeglab2023.0/');
 addpath('/Users/livioclemente/Documents/MATLAB/EKG_EEG-master/');
 addpath('/Users/livioclemente/Documents/MATLAB//bluewhitered/');
 
-% baseline
-baseline_duration = 100;
 % Calculate baseline indices
-Fs = 256; 
+Fs = 256;
+baseline_duration = 100;
 baseline_samples = round(baseline_duration / 1000 * Fs);
 t_start = -0.1; % start time in seconds
 t_end = 1; % end time in seconds
 time_vector = t_start:1/Fs:t_end-1/Fs;
 
-%%
-% Pazienti PTH
-
+% Path tracciati
 data_path1 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/pth/ginocchio/';
 data_path2 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/pth/piede/';
 data_path3 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/pth/mano/';
+data_path4 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/ct/ginocchio/';
+data_path5 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/ct/piede/';
+data_path6 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/ct/mano/';
+data_path7 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/dl_pth/ginocchio/';
+data_path8 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/dl_pth/piede/';
+data_path9 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/dl_pth/mano/';
+data_path10 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/normali/ginocchio/';
+data_path11 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/normali/piede/';
+data_path12 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/normali/mano/';
+
+% List of subject files
 subject_files1 = dir([data_path1 '*.set']);
 subject_files2 = dir([data_path2 '*.set']);
 subject_files3 = dir([data_path3 '*.set']);
+subject_files4 = dir([data_path4 '*.set']);
+subject_files5 = dir([data_path5 '*.set']);
+subject_files6 = dir([data_path6 '*.set']);
+subject_files7 = dir([data_path7 '*.set']);
+subject_files8 = dir([data_path8 '*.set']);
+subject_files9 = dir([data_path9 '*.set']);
+subject_files_10 = dir([data_path10 '*.set']);
+subject_files11 = dir([data_path11 '*.set']);
+subject_files12 = dir([data_path12 '*.set']);
 
 % numero soggetti
 num_subjects_pth = length(subject_files1);
+num_subjects_ct = length(subject_files4);
+num_subjects_dlpth = length(subject_files7);
+num_subjects_norm = length(subject_files_10);
 
 % Inizializzazione variabili
+% pth
 subj_data_pth = cell(num_subjects_pth, 1);
 subj_data_baseline_corrected_pth = cell(num_subjects_pth, 1);
 erp_mean_pth = cell(num_subjects_pth, 1);
 erp_mean_baseline_corrected_pth = cell(num_subjects_pth, 1);
 I_values_pth = cell(num_subjects_pth, 1);
 Iint_values_pth = cell(num_subjects_pth, 1);
+% ct
+subj_data_ct = cell(num_subjects_ct, 1);
+subj_data_baseline_corrected_ct = cell(num_subjects_ct, 1);
+erp_mean_ct = cell(num_subjects_ct, 1);
+erp_mean_baseline_corrected_ct = cell(num_subjects_ct, 1);
+I_values_ct = cell(num_subjects_ct, 1);
+Iint_values_ct = cell(num_subjects_ct, 1);
+% dlpth
+subj_data_dlpth = cell(num_subjects_dlpth, 1);
+subj_data_baseline_corrected_dlpth = cell(num_subjects_dlpth, 1);
+erp_mean_dlpth = cell(num_subjects_dlpth, 1);
+erp_mean_baseline_corrected_dlpth = cell(num_subjects_dlpth, 1);
+I_values_dlpth = cell(num_subjects_dlpth, 1);
+Iint_values_dlpth = cell(num_subjects_dlpth, 1);
+% norm
+subj_data_norm = cell(num_subjects_norm, 1);
+subj_data_baseline_corrected_norm = cell(num_subjects_norm, 1);
+erp_mean_norm = cell(num_subjects_norm, 1);
+erp_mean_baseline_corrected_norm = cell(num_subjects_norm, 1);
+I_values_norm = cell(num_subjects_norm, 1);
+Iint_values_norm = cell(num_subjects_norm, 1);
+
+%%
+
+% Pazienti PTH
 
 for s = 1:num_subjects_pth
 
@@ -97,26 +143,8 @@ group_Iint_values_pth = mean(cat(3, Iint_values_pth{:}), 3);
 group_erp_mean_baseline_corrected_pth = mean(cat(3, erp_mean_baseline_corrected_pth{:}), 3);
 
 %%
+
 %Controlli CT
-
-data_path4 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/ct/ginocchio/';
-data_path5 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/ct/piede/';
-data_path6 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/ct/mano/';
-subject_files4 = dir([data_path4 '*.set']);
-subject_files5 = dir([data_path5 '*.set']);
-subject_files6 = dir([data_path6 '*.set']);
-
-% numero soggetti
-num_subjects_ct = length(subject_files4);
-
-% Inizializzazione variabili
-subj_data_ct = cell(num_subjects_ct, 1);
-subj_data_baseline_corrected_ct = cell(num_subjects_ct, 1);
-erp_mean_ct = cell(num_subjects_ct, 1);
-erp_mean_baseline_corrected_ct = cell(num_subjects_ct, 1);
-I_values_ct = cell(num_subjects_ct, 1);
-Iint_values_ct = cell(num_subjects_ct, 1);
-
 
 for s = 1:num_subjects_ct
 
@@ -181,26 +209,8 @@ group_Iint_values_ct = mean(cat(3, Iint_values_ct{:}), 3);
 group_erp_mean_baseline_corrected_ct = mean(cat(3, erp_mean_baseline_corrected_ct{:}), 3);
 
 %%
+
 %Pazienti DL_PTH
-% Get a list of subject files
-data_path7 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/dl_pth/ginocchio/';
-data_path8 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/dl_pth/piede/';
-data_path9 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/dl_pth/mano/';
-subject_files7 = dir([data_path7 '*.set']);
-subject_files8 = dir([data_path8 '*.set']);
-subject_files9 = dir([data_path9 '*.set']);
-
-% Numero di soggetti
-num_subjects_dlpth = length(subject_files7);
-
-% Inizializza le variabili per memorizzare i risultati per ogni soggetto
-subj_data_dlpth = cell(num_subjects_dlpth, 1);
-subj_data_baseline_corrected_dlpth = cell(num_subjects_dlpth, 1);
-erp_mean_dlpth = cell(num_subjects_dlpth, 1);
-erp_mean_baseline_corrected_dlpth = cell(num_subjects_dlpth, 1);
-I_values_dlpth = cell(num_subjects_dlpth, 1);
-Iint_values_dlpth = cell(num_subjects_dlpth, 1);
-
 
 for s = 1:num_subjects_dlpth
     % Load data for the current subject
@@ -266,25 +276,8 @@ group_Iint_values_dlpth = mean(cat(3, Iint_values_dlpth{:}), 3);
 group_erp_mean_baseline_corrected_dlpth = mean(cat(3, erp_mean_baseline_corrected_dlpth{:}), 3);
 
 %%
-%Pazienti normali
-% Get a list of subject files
-data_path10 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/normali/ginocchio/';
-data_path11 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/normali/piede/';
-data_path12 = '/Users/livioclemente/Documents/prova_connettivita/64_ch_3_site/MI_1soggetto/conditions/normali/mano/';
-subject_files_10 = dir([data_path10 '*.set']);
-subject_files11 = dir([data_path11 '*.set']);
-subject_files12 = dir([data_path12 '*.set']);
 
-% Numero di soggetti
-num_subjects_norm = length(subject_files_10);
-
-% Inizializza le variabili per memorizzare i risultati per ogni soggetto
-subj_data_norm = cell(num_subjects_norm, 1);
-subj_data_baseline_corrected_norm = cell(num_subjects_norm, 1);
-erp_mean_norm = cell(num_subjects_norm, 1);
-erp_mean_baseline_corrected_norm = cell(num_subjects_norm, 1);
-I_values_norm = cell(num_subjects_norm, 1);
-Iint_values_norm = cell(num_subjects_norm, 1);
+%Pazienti normali NORM
 
 for s = 1:num_subjects_norm
     % Load data for the current subject
@@ -350,6 +343,10 @@ group_Iint_values_norm = mean(cat(3, Iint_values_norm{:}), 3);
 group_erp_mean_baseline_corrected_norm = mean(cat(3, erp_mean_baseline_corrected_norm{:}), 3);
 
 %%
+
+%Salvataggio dei dati
+
+% pth
 all_subj_data_pth = cell(num_subjects_pth, 1);
 for s = 1:num_subjects_pth
     % ...
@@ -361,6 +358,7 @@ for s = 1:num_subjects_pth
 end
 save('data_pth.mat', 'group_I_values_pth', 'group_Iint_values_pth', 'group_erp_mean_baseline_corrected_pth', 'I_values_pth', 'Iint_values_pth', 'erp_mean_baseline_corrected_pth', 'all_subj_data_pth', 'hdr');
 
+% ct
 all_subj_data_ct = cell(num_subjects_ct, 1);
 for s = 1:num_subjects_ct
     % ...
@@ -372,6 +370,7 @@ for s = 1:num_subjects_ct
 end
 save('data_ct.mat', 'group_I_values_ct', 'group_Iint_values_ct', 'group_erp_mean_baseline_corrected_ct', 'I_values_ct', 'Iint_values_ct', 'erp_mean_baseline_corrected_ct', 'all_subj_data_ct', 'hdr');
 
+% dlpth
 all_subj_data_dlpth = cell(num_subjects_dlpth, 1);
 for s = 1:num_subjects_dlpth
     % ...
@@ -382,6 +381,19 @@ for s = 1:num_subjects_dlpth
     % ...
 end
 save('data_dlpth.mat', 'group_I_values_dlpth', 'group_Iint_values_dlpth', 'group_erp_mean_baseline_corrected_dlpth', 'I_values_dlpth', 'Iint_values_dlpth', 'erp_mean_baseline_corrected_dlpth', 'all_subj_data_dlpth', 'hdr');
+
+% norm
+all_subj_data_norm = cell(num_subjects_norm, 1);
+for s = 1:num_subjects_norm
+    % ...
+
+    % Store all subject data for each condition
+    all_subj_data_norm{s} = subj_data_baseline_corrected_norm{s};
+
+    % ...
+end
+save('data_norm.mat', 'group_I_values_norm', 'group_Iint_values_norm', 'group_erp_mean_baseline_corrected_norm', 'I_values_norm', 'Iint_values_norm', 'erp_mean_baseline_corrected_norm', 'all_subj_data_norm', 'hdr');
+
 
 all_subj_data_norm = cell(num_subjects_norm, 1);
 for s = 1:num_subjects_norm
