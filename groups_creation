@@ -154,7 +154,7 @@ for s = 1:num_subjects_ct
     subj_data_ct{s} = cat(3, EEG4.data, EEG5.data, EEG6.data);
 
     % Subtract baseline mean from each trial for each condition
-    subj_data_baseline_corrected_ct{s} = subj_data_ct{s} - mean(subj_data_ct{s}(:, 1:baseline_samples_ct, :), 2);
+    subj_data_baseline_corrected_ct{s} = subj_data_ct{s} - mean(subj_data_ct{s}(:, 1:baseline_samples, :), 2);
 
     [electrodes, Nt_ct, trials4] = size(subj_data_baseline_corrected_ct{s});
     x_ct = squeeze(subj_data_baseline_corrected_ct{s}(11, :, :)); % Select one electrode
@@ -220,7 +220,7 @@ for s = 1:num_subjects_dlpth
     subj_data_dlpth{s} = cat(3, EEG7.data, EEG8.data, EEG9.data);
 
     % Subtract baseline mean from each trial for each condition
-    subj_data_baseline_corrected_dlpth{s} = subj_data_dlpth{s} - mean(subj_data_dlpth{s}(:, 1:baseline_samples_dlpth, :), 2);
+    subj_data_baseline_corrected_dlpth{s} = subj_data_dlpth{s} - mean(subj_data_dlpth{s}(:, 1:baseline_samples, :), 2);
 
     % Proceed with the rest of the script using the baseline-corrected data
     [electrodes, Nt_dlpth, trials7] = size(subj_data_baseline_corrected_dlpth{s});
@@ -287,7 +287,7 @@ for s = 1:num_subjects_norm
     subj_data_norm{s} = cat(3, EEG10.data, EEG11.data, EEG12.data);
 
     % Subtract baseline mean from each trial for each condition
-    subj_data_baseline_corrected_norm{s} = subj_data_norm{s} - mean(subj_data_norm{s}(:, 1:baseline_samples_norm, :), 2);
+    subj_data_baseline_corrected_norm{s} = subj_data_norm{s} - mean(subj_data_norm{s}(:, 1:baseline_samples, :), 2);
 
     % Proceed with the rest of the script using the baseline-corrected data
     [electrodes, Nt_norm, trials10] = size(subj_data_baseline_corrected_norm{s});
