@@ -260,7 +260,7 @@ for s = 1:num_subjects_dlpth
     % Calculate the average ERP for each condition
     erp_mean_dlpth{s} = mean(subj_data_baseline_corrected_dlpth{s}, 3);
     n_samples_dlpth = size(erp_mean_dlpth{s}, 2);
-    time_axis_corrected_dlpth = linspace(t_start * 1000, t_end * 1000 - 1 / Fs_dlpth * 1000, n_samples_dlpth);
+    time_axis_corrected_dlpth = linspace(t_start * 1000, t_end * 1000 - 1 / Fs * 1000, n_samples_dlpth);
 
     % Apply baseline correction
     baseline_range_dlpth = find(time_vector >= -100 & time_vector <= 0);
@@ -327,7 +327,7 @@ for s = 1:num_subjects_norm
     % Calculate the average ERP for each condition
     erp_mean_norm{s} = mean(subj_data_baseline_corrected_norm{s}, 3);
     n_samples_norm = size(erp_mean_norm{s}, 2);
-    time_axis_corrected_norm = linspace(t_start * 1000, t_end * 1000 - 1 / Fs_norm * 1000, n_samples_norm);
+    time_axis_corrected_norm = linspace(t_start * 1000, t_end * 1000 - 1 / Fs * 1000, n_samples_norm);
 
     % Apply baseline correction
     baseline_range_norm = find(time_vector >= -100 & time_vector <= 0);
